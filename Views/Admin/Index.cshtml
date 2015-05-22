@@ -1,0 +1,162 @@
+﻿﻿@model JadeX.HtmlMinifier.ViewModels.IndexViewModel
+
+@{
+    Layout.Title = T("Html Minifier Settings - Features");
+}
+
+@using (Html.BeginFormAntiForgeryPost()) {
+    @Html.ValidationSummary()
+
+    if (HttpContext.Current.IsDebuggingEnabled) {
+        <div class="message message-Warning">@T("<strong>Warning:</strong> Site is running in debug mode, minification functionality of this module is disabled. Disable debug in your site's web.config.")</div>
+    }
+
+    <fieldset>
+        <legend>@T("Minification Modes")</legend>
+        <div>
+            <label for="@Html.FieldIdFor(m => m.WhitespaceMinificationMode)">@T("Whitespace minification mode:")</label>
+            @Html.EnumDropDownListFor(m => m.WhitespaceMinificationMode)
+            <span class="hint">@T("<strong>Default: Medium</strong>")</span>
+        </div>
+        <div>
+            <label for="@Html.FieldIdFor(m => m.EmptyTagRenderMode)">@T("Empty tag render mode:")</label>
+            @Html.EnumDropDownListFor(m => m.EmptyTagRenderMode)
+            <span class="hint">@T("<strong>Default: NoSlash</strong>")</span>
+        </div>
+        <div>
+            <label for="@Html.FieldIdFor(m => m.AttributeQuotesRemovalMode)">@T("Attribute quotes removal mode:")</label>
+            @Html.EnumDropDownListFor(m => m.AttributeQuotesRemovalMode)
+            <span class="hint">@T("<strong>Default: Html5</strong>")</span>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>@T("Basic Features")</legend>
+        <div>
+            @Html.EditorFor(m => m.RemoveHtmlComments)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveHtmlComments)">@T("Remove html comments")</label>
+            <span class="hint">@T("Flag for whether to remove all HTML comments, except conditional, noindex and KnockoutJS containerless comments. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveHtmlCommentsFromScriptsAndStyles)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveHtmlCommentsFromScriptsAndStyles)">@T("Remove html comments from scripts and styles")</label>
+            <span class="hint">@T("Flag for whether to remove HTML comments from script and style tags. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveCdataSectionsFromScriptsAndStyles)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveCdataSectionsFromScriptsAndStyles)">@T("Remove CDATA sections from scripts and styles")</label>
+            <span class="hint">@T("Flag for whether to remove CDATA sections from script and style tags. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.UseShortDoctype)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.UseShortDoctype)">@T("Use short doctype")</label>
+            <span class="hint">@T("Flag for whether to replace existing document type declaration by short declaration - &lt;!DOCTYPE html&gt;. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.UseMetaCharsetTag)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.UseMetaCharsetTag)">@T("Use meta charset tag")</label>
+            <span class="hint">@T("Flag for whether to replace &lt;meta http-equiv=\"content-type\" content=\"text/html; charset=…\"&gt; tag with &lt;meta charset=\"…\"&gt; tag <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveOptionalEndTags)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveOptionalEndTags)">@T("Remove optional end tags")</label>
+            <span class="hint">@T("Flag for whether to remove optional end tags (html, head, body, p, li, dt, dd, rt, rp, optgroup, option, colgroup, thead, tfoot, tbody, tr, th and td). <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveTagsWithoutContent)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveTagsWithoutContent)">@T("Remove tags without content")</label>
+            <span class="hint">@T("Flag for whether to remove tags without content, except for textarea, tr, th and td tags, and tags with class, id, name, role, src and data-* attributes. <strong>Default: False</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.CollapseBooleanAttributes)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.CollapseBooleanAttributes)">@T("Collapse boolean attributes")</label>
+            <span class="hint">@T("Flag for whether to remove values from boolean attributes (for example, checked=\"checked\" is transformed to checked). <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveEmptyAttributes)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveEmptyAttributes)">@T("Remove empty attributes")</label>
+            <span class="hint">@T("Flag for whether to remove attributes, which have empty value (valid attributes are: class, id, name, style, title, lang, dir, event attributes, action attribute of form tag and value attribute of input tag). <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveRedundantAttributes)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveRedundantAttributes)">@T("Remove redundant attributes")</label>
+            <span class="hint">@T("Flag for whether to remove redundant attributes. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveJsTypeAttributes)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveJsTypeAttributes)">@T("Remove JS type attributes")</label>
+            <span class="hint">@T("Flag for whether to remove type=\"text/javascript\" attributes from script tags. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveCssTypeAttributes)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveCssTypeAttributes)">@T("Remove CSS type attributes")</label>
+            <span class="hint">@T("Flag for whether to remove type=\"text/css\" attributes from style and link tags. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveHttpProtocolFromAttributes)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveHttpProtocolFromAttributes)">@T("Remove HTTP protocol from attributes")</label>
+            <span class="hint">@T("Flag for whether to remove the HTTP protocol portion (http:) from URI-based attributes (tags marked with rel=\"external\" are skipped). <strong>Default: False</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveHttpsProtocolFromAttributes)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveHttpsProtocolFromAttributes)">@T("Remove HTTPS protocol from attributes")</label>
+            <span class="hint">@T("Flag for whether to remove the HTTPS protocol portion (https:) from URI-based attributes (tags marked with rel=\"external\" are skipped). <strong>Default: False</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.RemoveJsProtocolFromAttributes)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveJsProtocolFromAttributes)">@T("Remove JS protocol from attributes")</label>
+            <span class="hint">@T("Flag for whether to remove the javascript: pseudo-protocol portion from event attributes. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.MinifyEmbeddedCssCode)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.MinifyEmbeddedCssCode)">@T("Minify embedded CSS code")</label>
+            <span class="hint">@T("Flag for whether to minify CSS code in style tags. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.MinifyInlineCssCode)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.MinifyInlineCssCode)">@T("Minify inline CSS code")</label>
+            <span class="hint">@T("Flag for whether to minify CSS code in style attributes. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.MinifyEmbeddedJsCode)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.MinifyEmbeddedJsCode)">@T("Minify embedded JS code")</label>
+            <span class="hint">@T("Flag for whether to minify JS code in script tags. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.MinifyInlineJsCode)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.MinifyInlineJsCode)">@T("Minify inline JS code")</label>
+            <span class="hint">@T("Flag for whether to minify JS code in event attributes and hyperlinks with javascript: pseudo-protocol. <strong>Default: True</strong>")</span>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>@T("Advanced Features")</legend>
+        <div>
+            <label for="@Html.FieldIdFor(m => m.ProcessableScriptTypeList)">@T("Processable script type list")</label>
+            @Html.TextBoxFor(m => m.ProcessableScriptTypeList, new Dictionary<string, object> { { "class", "text large" } })
+            <span class="hint">@T("Comma-separated list of types of script tags, that are processed by minifier (e.g. \"text/html, text/ng-template\"). Currently supports only the KnockoutJS, Kendo UI MVVM and AngularJS views. <strong>Default: \"\"</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.MinifyKnockoutBindingExpressions)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.MinifyKnockoutBindingExpressions)">@T("Minify KnocknoutJS binding expressions")</label>
+            <span class="hint">@T("Flag for whether to minify the KnockoutJS binding expressions in data-bind attributes and containerless comments. <strong>Default: False</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.MinifyAngularBindingExpressions)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.MinifyAngularBindingExpressions)">@T("Minify AngularJS binding expressions")</label>
+            <span class="hint">@T("Flag for whether to minify the AngularJS binding expressions in Mustache-style tags ({{}}) and directives. <strong>Default: False</strong>")</span>
+        </div>
+        <div>
+            <label for="@Html.FieldIdFor(m => m.CustomAngularDirectiveList)">@T("Custom AngularJS directive list")</label>
+            @Html.TextBoxFor(m => m.CustomAngularDirectiveList, new Dictionary<string, object> { { "class", "text large" } })
+            <span class="hint">@T("Comma-separated list of names of custom AngularJS directives (e.g. \"myDir, btfCarousel\"), that contain expressions. If value of the MinifyAngularBindingExpressions property is equal to true, then the expressions in custom directives will be minified. <strong>Default: \"\"</strong>")</span>
+        </div>
+        <div>
+            <label>@T("Statistics Info Window Pattern")</label>
+            @Html.TextAreaFor(m => m.StatisticsInfoWindowPattern, new { @class = "text medium" })
+            <span class="hint">@T("Provides administrators with information window about page minification process. Please refer documentation on how to use this.")</span>
+            <a class="hint" href="https://github.com/JadeX/Orchard.HtmlMinifier/wiki/Statistics-info-window">https://github.com/JadeX/Orchard.HtmlMinifier/wiki/Statistics-info-window</a>
+            <span class="hint">@T("Leave empty to have this feature disabled.")</span>
+        </div>
+    </fieldset>
+
+    <button class="primaryAction" type="submit">@T("Save")</button>
+}

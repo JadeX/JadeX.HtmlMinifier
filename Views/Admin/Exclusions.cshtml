@@ -1,0 +1,36 @@
+﻿@model JadeX.HtmlMinifier.ViewModels.IndexViewModel
+
+@{
+    Layout.Title = T("Html Minifier Settings - Exclusions");
+}
+
+@using (Html.BeginFormAntiForgeryPost())
+{
+    @Html.ValidationSummary()
+    <fieldset>
+        <legend>@T("Exclusions")</legend>
+        <div>
+            @Html.EditorFor(m => m.ExcludeAdmin)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.ExcludeAdmin)">@T("Exclude administration")</label>
+            <span class="hint">@T("Disabling exclusion of administration shouldn't cause any problems, but there isn't much to be gained either, better safe than sorry. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.ExcludeAuthenticated)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.ExcludeAuthenticated)">@T("Exclude authenticated users")</label>
+            <span class="hint">@T("Authenticated users are by default excluded from Output caching, thus every response has to be minified separately. Disabling this exclusion may slightly impact site's performance with higher CPU usage and response times if OutputCache is not set to cache authenticated as well. This option no effect on administration area. <strong>Default: True</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.HaltOnWarnings)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.HaltOnWarnings)">@T("Halt on warnings")</label>
+            <span class="hint">@T("Don't use minified content if minification process threw warnings (check logs for full warning messages). <strong>Default: False</strong>")</span>
+        </div>
+        <div>
+            <label>@T("Ignored urls")</label>
+            @Html.TextAreaFor(m => m.IgnoredUrls, new { @class = "text medium" })
+            <span class="hint">@T("This must be a set of relative paths, e.g., /, /About. Please ensure that you enter only one path per line.")</span>
+            <span class="hint">@T("You can add comments by starting the line with #.")</span>
+        </div>
+    </fieldset>
+
+    <button class="primaryAction" type="submit">@T("Save")</button>
+}

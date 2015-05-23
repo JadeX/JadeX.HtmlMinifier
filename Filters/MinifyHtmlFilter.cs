@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using JadeX.HtmlMinifier.Models;
 using Orchard;
@@ -60,7 +58,6 @@ namespace JadeX.HtmlMinifier.Filters
                 filterContext.HttpContext.Response.Output.Encoding,
                 settings,
                 Logger,
-                HttpContext.Current.Response.Headers["Content-Encoding"],
                 authorizer.Authorize(StandardPermissions.SiteOwner));
         }
 
@@ -105,14 +102,12 @@ namespace JadeX.HtmlMinifier.Filters
     {
         private readonly Stream stream;
         private readonly Encoding encoding;
-        private readonly string contentEncoding;
         private readonly MinificationSettingsPart settings;
         private string html;
         private readonly bool isOwner;
 
-        public MinifyHtmlFilter(Stream filter, Encoding encoding, MinificationSettingsPart settings, ILogger logger, string contentEncoding, bool isOwner)
+        public MinifyHtmlFilter(Stream filter, Encoding encoding, MinificationSettingsPart settings, ILogger logger, bool isOwner)
         {
-            this.contentEncoding = contentEncoding;
             this.isOwner = isOwner;
             Logger = logger;
             stream = filter;
@@ -188,15 +183,15 @@ namespace JadeX.HtmlMinifier.Filters
                 if (generateStatistics)
                 {
                     var statistics = settings.StatisticsInfoWindowPattern
-                        .Replace("{CompressionGzipRatio}", string.Format("{0:P1}", (float)result.Statistics.CompressionGzipRatio / 100))
+                        .Replace("{Gzip-CompressionRatio}", string.Format("{0:P1}", (float)result.Statistics.CompressionGzipRatio / 100))
                         .Replace("{CompressionRatio}", string.Format("{0:P1}", (float)result.Statistics.CompressionRatio / 100))
                         .Replace("{MinificationDuration}", string.Format("{0} ms", result.Statistics.MinificationDuration))
-                        .Replace("{OriginalGzipSize}", string.Format("{0:F} KB", (float)result.Statistics.OriginalGzipSize / 1000))
+                        .Replace("{Gzip-OriginalSize}", string.Format("{0:F} KB", (float)result.Statistics.OriginalGzipSize / 1000))
                         .Replace("{OriginalSize}", string.Format("{0:N} KB", (float)result.Statistics.OriginalSize / 1000))
-                        .Replace("{MinifiedGzipSize}", string.Format("{0:N} KB", (float)result.Statistics.MinifiedGzipSize / 1000))
+                        .Replace("{Gzip-MinifiedSize}", string.Format("{0:N} KB", (float)result.Statistics.MinifiedGzipSize / 1000))
                         .Replace("{MinifiedSize}", string.Format("{0:N} KB", (float)result.Statistics.MinifiedSize / 1000))
-                        .Replace("{SavedGzip}", string.Format("{0:N} KB", (float)result.Statistics.SavedGzipInBytes / 1000))
-                        .Replace("{SavedGzipInPercent}", string.Format("{0:P1}", (float)result.Statistics.SavedGzipInPercent / 100))
+                        .Replace("{Gzip-Saved}", string.Format("{0:N} KB", (float)result.Statistics.SavedGzipInBytes / 1000))
+                        .Replace("{Gzip-SavedInPercent}", string.Format("{0:P1}", (float)result.Statistics.SavedGzipInPercent / 100))
                         .Replace("{Saved}", string.Format("{0:N} KB", (float)result.Statistics.SavedInBytes / 1000))
                         .Replace("{SavedInPercent}", string.Format("{0:P1}", (float)result.Statistics.SavedInPercent / 100));
 

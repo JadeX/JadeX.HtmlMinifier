@@ -3,7 +3,7 @@ AntiForgery: enabled
 Author: Liam "Xeevis" Aqil
 Website: https://github.com/JadeX/Orchard.HtmlMinifier
 Version: 1.2
-OrchardVersion: 1.8
+OrchardVersion: 1.9
 Description: Removes clutter and redundancy from generated HTML responses.
 Features:
     JadeX.HtmlMinifier:

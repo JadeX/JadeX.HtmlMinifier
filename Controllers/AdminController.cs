@@ -28,7 +28,7 @@ namespace JadeX.HtmlMinifier.Controllers
 
         public ActionResult Index()
         {
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not allowed to manage Html Minification - Features")))
+            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not allowed to manage HTML Minifier - Features")))
             {
                 return new HttpUnauthorizedResult();
             }
@@ -72,7 +72,7 @@ namespace JadeX.HtmlMinifier.Controllers
         [ValidateInput(false)]
         public ActionResult IndexPost()
         {
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not allowed to manage Html Minification - Features")))
+            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not allowed to manage HTML Minifier - Features")))
             {
                 return new HttpUnauthorizedResult();
             }
@@ -125,7 +125,7 @@ namespace JadeX.HtmlMinifier.Controllers
 
         public ActionResult Exclusions()
         {
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not allowed to manage Html Minification - Exclusions")))
+            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not allowed to manage HTML Minifier - Exclusions")))
             {
                 return new HttpUnauthorizedResult();
             }
@@ -145,7 +145,7 @@ namespace JadeX.HtmlMinifier.Controllers
         [HttpPost, ActionName("Exclusions")]
         public ActionResult ExclusionsPost()
         {
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not allowed to manage Html Minification - Exclusions")))
+            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not allowed to manage HTML Minifier - Exclusions")))
             {
                 return new HttpUnauthorizedResult();
             }

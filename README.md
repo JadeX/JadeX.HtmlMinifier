@@ -10,11 +10,16 @@ ___
 
 ## Installation
 ### Automatic (Orchard Gallery)
-1. Go to {YourOrchardDomain}/Packaging/Gallery/Modules?SearchText=HTML+Minifier and click Install
+1. Go to {YourOrchardDomain}/Packaging/Gallery/Modules?SearchText=HTML+Minifier and click `install`
 
-### Manual
+### Manual #1
+1. Download .nupkg package from releases section
+2. Go to Admin Dashboard of your site > Modules > Installed > `Install a module from your computer`
+3. Select downloaded .nupkg package and click `install`
+
+### Manual #2
 1. Download .zip package from releases section
-2. Extract to modules folder (make sure all contents are inside folder called "JadeX.HtmlMinifier")
+2. Extract to modules folder
 3. Go to Admin Dashboard of your site and enable `HTML Minifier` module
 
 ___

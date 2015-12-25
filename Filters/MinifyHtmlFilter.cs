@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using JadeX.HtmlMinifier.Models;
@@ -47,8 +48,9 @@ namespace JadeX.HtmlMinifier.Filters
             var isAdminExcluded = settings.ExcludeAdmin && isAdminPage;
             var isAuthenticatedExcluded = workContext.CurrentUser != null && settings.ExcludeAuthenticated && !isAdminPage;
             var debugEnabled = filterContext.HttpContext.IsDebuggingEnabled;
+            var isHtml = new[] { "text/html" }.Contains(workContext.HttpContext.Response.ContentType.ToLower());
 
-            if (filterContext.HttpContext.Response.Filter == null || isAdminExcluded || isAuthenticatedExcluded || isIgnoredUrl || debugEnabled)
+            if (filterContext.HttpContext.Response.Filter == null || isAdminExcluded || isAuthenticatedExcluded || isIgnoredUrl || debugEnabled || !isHtml)
             {
                 return;
             }

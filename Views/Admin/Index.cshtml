@@ -4,10 +4,12 @@
     Layout.Title = T("HTML Minifier Settings - Features");
 }
 
-@using (Html.BeginFormAntiForgeryPost()) {
+@using (Html.BeginFormAntiForgeryPost())
+{
     @Html.ValidationSummary()
 
-    if (HttpContext.Current.IsDebuggingEnabled) {
+    if (HttpContext.Current.IsDebuggingEnabled)
+    {
         <div class="message message-Warning">@T("<strong>Warning:</strong> Site is running in debug mode, minification functionality of this module is disabled. Disable debug in your site's web.config.")</div>
     }
 

@@ -2,13 +2,13 @@
 using Orchard.Security;
 using Orchard.UI.Navigation;
 
-namespace JadeX.HtmlMinifier
+namespace Orchard.Core.Settings
 {
     public class AdminMenu : INavigationProvider
     {
         public Localizer T { get; set; }
 
-        public string MenuName { get { return "admin"; } }
+        public string MenuName => "admin";
 
         public void GetNavigation(NavigationBuilder builder)
         {

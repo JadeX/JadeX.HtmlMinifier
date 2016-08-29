@@ -95,7 +95,6 @@ namespace JadeX.HtmlMinifier.Controllers
                 settings.EmptyTagRenderMode = model.EmptyTagRenderMode;
                 settings.RemoveOptionalEndTags = model.RemoveOptionalEndTags;
                 settings.PreservableOptionalTagList = model.PreservableOptionalTagList;
-                settings.PreservableOptionalTagList = model.PreservableOptionalTagList;
                 settings.RemoveTagsWithoutContent = model.RemoveTagsWithoutContent;
                 settings.CollapseBooleanAttributes = model.CollapseBooleanAttributes;
                 settings.RemoveEmptyAttributes = model.RemoveEmptyAttributes;

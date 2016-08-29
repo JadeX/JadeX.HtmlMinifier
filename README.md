@@ -5,7 +5,7 @@ Size for simple pages gets reduced by 10% (gzipped) or 20% (uncompressed) respec
 
 Minification makes full use of Output caching provided by Orchard.OutputCache module to prevent recurring minification for responses that were already recently minified.
 
-**Supported versions:** Orchard 1.9
+**Supported versions:** Orchard 1.9.x, Orchard 1.10.x
 ___
 
 ## Installation

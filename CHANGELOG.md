@@ -1,4 +1,18 @@
 # Changelog
+
+## v 2.0
+
++ Updated **WebMarkupMin.Core** library to **2.1.0**
+    - Added 2 features:
+        * `Preserve case` (Default: `False`)
+        * `Preserve optional tags list` (Default: empty)	
+	- Minification removes the byte order mark (BOM)
+	- Fixed errors that occur when processing Angular 2, Aurelia and Polymer templates
+	- Improved the safe whitespace minification mode
+	- `rb` and `rtc` tags are now considered as optional end tags	
++ Improved compatibility with dev branch
++ Several other minor fixes and code improvements
+
 ## v 1.3
 
 + Updated **WebMarkupMin.Core** library to **1.0.1**
@@ -19,7 +33,7 @@
         * `Custom Angular directive list` (Default: empty)
 
 + Minification will now be disabled when site runs in **Debug mode**
-+ Several bug fixes and code improvements
++ Several other minor fixes and code improvements
 
 ## v 1.1
 

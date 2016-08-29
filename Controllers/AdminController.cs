@@ -41,9 +41,11 @@ namespace JadeX.HtmlMinifier.Controllers
                 RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
                 RemoveCdataSectionsFromScriptsAndStyles = settings.RemoveCdataSectionsFromScriptsAndStyles,
                 UseShortDoctype = settings.UseShortDoctype,
+                PreserveCase = settings.PreserveCase,
                 UseMetaCharsetTag = settings.UseMetaCharsetTag,
                 EmptyTagRenderMode = settings.EmptyTagRenderMode,
                 RemoveOptionalEndTags = settings.RemoveOptionalEndTags,
+                PreservableOptionalTagList = settings.PreservableOptionalTagList,
                 RemoveTagsWithoutContent = settings.RemoveTagsWithoutContent,
                 CollapseBooleanAttributes = settings.CollapseBooleanAttributes,
                 RemoveEmptyAttributes = settings.RemoveEmptyAttributes,
@@ -88,9 +90,12 @@ namespace JadeX.HtmlMinifier.Controllers
                 settings.RemoveHtmlCommentsFromScriptsAndStyles = model.RemoveHtmlCommentsFromScriptsAndStyles;
                 settings.RemoveCdataSectionsFromScriptsAndStyles = model.RemoveCdataSectionsFromScriptsAndStyles;
                 settings.UseShortDoctype = model.UseShortDoctype;
+                settings.PreserveCase = model.PreserveCase;
                 settings.UseMetaCharsetTag = model.UseMetaCharsetTag;
                 settings.EmptyTagRenderMode = model.EmptyTagRenderMode;
                 settings.RemoveOptionalEndTags = model.RemoveOptionalEndTags;
+                settings.PreservableOptionalTagList = model.PreservableOptionalTagList;
+                settings.PreservableOptionalTagList = model.PreservableOptionalTagList;
                 settings.RemoveTagsWithoutContent = model.RemoveTagsWithoutContent;
                 settings.CollapseBooleanAttributes = model.CollapseBooleanAttributes;
                 settings.RemoveEmptyAttributes = model.RemoveEmptyAttributes;

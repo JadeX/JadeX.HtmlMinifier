@@ -1,5 +1,4 @@
-﻿using System.Web.Mvc;
-using WebMarkupMin.Core;
+﻿using WebMarkupMin.Core;
 
 namespace JadeX.HtmlMinifier.ViewModels
 {
@@ -23,11 +22,15 @@ namespace JadeX.HtmlMinifier.ViewModels
 
         public bool UseShortDoctype { get; set; }
 
+        public bool PreserveCase { get; set; }
+
         public bool UseMetaCharsetTag { get; set; }
 
         public HtmlEmptyTagRenderMode EmptyTagRenderMode { get; set; }
 
         public bool RemoveOptionalEndTags { get; set; }
+
+        public string PreservableOptionalTagList { get; set; }
 
         public bool RemoveTagsWithoutContent { get; set; }
 

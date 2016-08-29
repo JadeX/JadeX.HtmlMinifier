@@ -36,4 +36,4 @@ After successful installation you'll find new entry in your admin menu under Set
 ___
 
 ## Source Compilation
-Built using Visual Studio 2013, .NET 4.5.1. Has dependency on 1 NuGet package, make sure this dependency is acquired from the NuGet gallery.
+Built using Visual Studio 2015, .NET 4.5.2. Has dependency on 1 NuGet package, make sure this dependency is acquired from the NuGet gallery.

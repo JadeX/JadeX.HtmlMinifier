@@ -4,7 +4,7 @@ HTML Minifier is a free software, licensed under the Apache License, Version 2.0
 "License"). Commercial and non-commercial use are permitted in compliance with
 the License.
 
-Copyright (c) 2015 Liam "Xeevis" Aqil. All rights reserved.
+Copyright (c) 2015-2016 Liam "Xeevis" Aqil. All rights reserved.
 
 You may obtain a copy of the License at:
 http://www.apache.org/licenses/LICENSE-2.0
@@ -34,7 +34,7 @@ license.
 Web Markup Minifier is distributed under the Apache License 2.0, which is
 included with this package.
 
-Copyright (c) 2013-2015 Andrey Taritsyn
+Copyright (c) 2013-2016 Andrey Taritsyn
 
 The source code for Web Markup Minifier is available at:
-http://webmarkupmin.codeplex.com
+https://github.com/Taritsyn/WebMarkupMin

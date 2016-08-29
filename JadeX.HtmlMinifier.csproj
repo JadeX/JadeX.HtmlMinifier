@@ -54,8 +54,8 @@
       <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="WebMarkupMin.Core, Version=1.0.1.0, Culture=neutral, PublicKeyToken=99472178d266584b, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\WebMarkupMin.Core.1.0.1\lib\net40\WebMarkupMin.Core.dll</HintPath>
+    <Reference Include="WebMarkupMin.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=99472178d266584b, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\WebMarkupMin.Core.2.1.0\lib\net452\WebMarkupMin.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Web.config" />
-    <None Include="LICENSE.md" />
+    <Content Include="LICENSE.md" />
     <Content Include="README.md" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Deploy - Clean.pubxml" />

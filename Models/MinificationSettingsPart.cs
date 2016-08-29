@@ -61,6 +61,12 @@ namespace JadeX.HtmlMinifier.Models
             set { this.Store(x => x.UseShortDoctype, value); }
         }
 
+        public bool PreserveCase
+        {
+            get { return this.Retrieve(x => x.PreserveCase); }
+            set { this.Store(x => x.PreserveCase, value); }
+        }
+
         public bool UseMetaCharsetTag
         {
             get { return this.Retrieve(x => x.UseMetaCharsetTag, true); }
@@ -77,6 +83,12 @@ namespace JadeX.HtmlMinifier.Models
         {
             get { return this.Retrieve(x => x.RemoveOptionalEndTags, true); }
             set { this.Store(x => x.RemoveOptionalEndTags, value); }
+        }
+
+        public string PreservableOptionalTagList
+        {
+            get { return this.Retrieve(x => x.PreservableOptionalTagList); }
+            set { this.Store(x => x.PreservableOptionalTagList, value); }
         }
 
         public bool RemoveTagsWithoutContent

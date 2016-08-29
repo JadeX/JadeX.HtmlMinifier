@@ -64,6 +64,11 @@
             <span class="hint">@T("Flag for whether to remove optional end tags (html, head, body, p, li, dt, dd, rt, rp, optgroup, option, colgroup, thead, tfoot, tbody, tr, th and td). <strong>Default: True</strong>")</span>
         </div>
         <div>
+            <label for="@Html.FieldIdFor(m => m.PreservableOptionalTagList)">@T("Preserve optional tags list")</label>
+            @Html.TextBoxFor(m => m.PreservableOptionalTagList, new Dictionary<string, object> { { "class", "text large" } })
+            <span class="hint">@T("Comma-separated list of names of optional tags, which should not be removed (e.g. \"li, rb, rtc, rt, rp\"). <strong>Default: \"\"</strong>")</span>
+        </div>
+        <div>
             @Html.EditorFor(m => m.RemoveTagsWithoutContent)
             <label class="forcheckbox" for="@Html.FieldIdFor(m => m.RemoveTagsWithoutContent)">@T("Remove tags without content")</label>
             <span class="hint">@T("Flag for whether to remove tags without content, except for textarea, tr, th and td tags, and tags with class, id, name, role, src and data-* attributes. <strong>Default: False</strong>")</span>
@@ -148,13 +153,18 @@
         </div>
         <div>
             <label for="@Html.FieldIdFor(m => m.CustomAngularDirectiveList)">@T("Custom AngularJS directive list")</label>
-            @Html.TextBoxFor(m => m.CustomAngularDirectiveList, new Dictionary<string, object> { { "class", "text large" } })
+            @Html.TextBoxFor(m => m.CustomAngularDirectiveList, new Dictionary<string, object> {{"class", "text large"}})
             <span class="hint">@T("Comma-separated list of names of custom AngularJS directives (e.g. \"myDir, btfCarousel\"), that contain expressions. If value of the MinifyAngularBindingExpressions property is equal to true, then the expressions in custom directives will be minified. <strong>Default: \"\"</strong>")</span>
+        </div>
+        <div>
+            @Html.EditorFor(m => m.PreserveCase)
+            <label class="forcheckbox" for="@Html.FieldIdFor(m => m.PreserveCase)">@T("Preserve case")</label>
+            <span class="hint">@T("Flag for whether to preserve case of tag and attribute names (useful for Angular 2 templates). <strong>Default: False</strong>")</span>
         </div>
         <div>
             <label>@T("Statistics Info Window Pattern")</label>
             @Html.TextAreaFor(m => m.StatisticsInfoWindowPattern, new { @class = "text medium" })
-            <span class="hint">@T("Provides administrators with information window about page minification process. Please refer documentation on how to use this.")</span>
+            <span class="hint">@T("Provides administrators with information window about page minification process. Please refer to documentation on how to use this.")</span>
             <a class="hint" href="https://github.com/JadeX/Orchard.HtmlMinifier/wiki/Statistics-info-window">https://github.com/JadeX/Orchard.HtmlMinifier/wiki/Statistics-info-window</a>
             <span class="hint">@T("Leave empty to have this feature disabled.")</span>
         </div>

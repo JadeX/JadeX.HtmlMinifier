@@ -11,7 +11,7 @@ using Orchard.Logging;
 using Orchard.Mvc.Filters;
 using Orchard.Security;
 using Orchard.UI.Admin;
-using WebMarkupMin.Core.Settings;
+using WebMarkupMin.Core;
 
 namespace JadeX.HtmlMinifier.Filters
 {
@@ -35,9 +35,14 @@ namespace JadeX.HtmlMinifier.Filters
 
         public void OnResultExecuting(ResultExecutingContext filterContext)
         {
+        }
+
+        public void OnResultExecuted(ResultExecutedContext filterContext)
+        {
             var settings = cacheManager.Get(
                 MinificationSettingsPart.CacheKey,
-                context => {
+                context =>
+                {
                     context.Monitor(signals.When(MinificationSettingsPart.CacheKey));
                     return workContext.CurrentSite.As<MinificationSettingsPart>();
                 });
@@ -61,10 +66,6 @@ namespace JadeX.HtmlMinifier.Filters
                 settings,
                 Logger,
                 authorizer.Authorize(StandardPermissions.SiteOwner));
-        }
-
-        public void OnResultExecuted(ResultExecutedContext filterContext)
-        {
         }
 
         private bool IsIgnoredUrl(string url, string ignoredUrls)
@@ -126,15 +127,18 @@ namespace JadeX.HtmlMinifier.Filters
 
         public override void Flush()
         {
-            var htmlMinifier = new WebMarkupMin.Core.Minifiers.HtmlMinifier(new HtmlMinificationSettings {
+            var htmlMinifier = new WebMarkupMin.Core.HtmlMinifier(new HtmlMinificationSettings
+            {
                 WhitespaceMinificationMode = settings.WhitespaceMinificationMode,
                 RemoveHtmlComments = settings.RemoveHtmlComments,
                 RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
                 RemoveCdataSectionsFromScriptsAndStyles = settings.RemoveCdataSectionsFromScriptsAndStyles,
                 UseShortDoctype = settings.UseShortDoctype,
+                PreserveCase = settings.PreserveCase,
                 UseMetaCharsetTag = settings.UseMetaCharsetTag,
                 EmptyTagRenderMode = settings.EmptyTagRenderMode,
                 RemoveOptionalEndTags = settings.RemoveOptionalEndTags,
+                PreservableOptionalTagList = settings.PreservableOptionalTagList,
                 RemoveTagsWithoutContent = settings.RemoveTagsWithoutContent,
                 CollapseBooleanAttributes = settings.CollapseBooleanAttributes,
                 RemoveEmptyAttributes = settings.RemoveEmptyAttributes,
@@ -185,17 +189,17 @@ namespace JadeX.HtmlMinifier.Filters
                 if (generateStatistics)
                 {
                     var statistics = settings.StatisticsInfoWindowPattern
-                        .Replace("{Gzip-CompressionRatio}", string.Format("{0:P1}", (float)result.Statistics.CompressionGzipRatio / 100))
-                        .Replace("{CompressionRatio}", string.Format("{0:P1}", (float)result.Statistics.CompressionRatio / 100))
-                        .Replace("{MinificationDuration}", string.Format("{0} ms", result.Statistics.MinificationDuration))
-                        .Replace("{Gzip-OriginalSize}", string.Format("{0:F} KB", (float)result.Statistics.OriginalGzipSize / 1000))
-                        .Replace("{OriginalSize}", string.Format("{0:N} KB", (float)result.Statistics.OriginalSize / 1000))
-                        .Replace("{Gzip-MinifiedSize}", string.Format("{0:N} KB", (float)result.Statistics.MinifiedGzipSize / 1000))
-                        .Replace("{MinifiedSize}", string.Format("{0:N} KB", (float)result.Statistics.MinifiedSize / 1000))
-                        .Replace("{Gzip-Saved}", string.Format("{0:N} KB", (float)result.Statistics.SavedGzipInBytes / 1000))
-                        .Replace("{Gzip-SavedInPercent}", string.Format("{0:P1}", (float)result.Statistics.SavedGzipInPercent / 100))
-                        .Replace("{Saved}", string.Format("{0:N} KB", (float)result.Statistics.SavedInBytes / 1000))
-                        .Replace("{SavedInPercent}", string.Format("{0:P1}", (float)result.Statistics.SavedInPercent / 100));
+                        .Replace("{Gzip-CompressionRatio}", $"{(float) result.Statistics.CompressionGzipRatio/100:P1}")
+                        .Replace("{CompressionRatio}", $"{(float) result.Statistics.CompressionRatio/100:P1}")
+                        .Replace("{MinificationDuration}", $"{result.Statistics.MinificationDuration} ms")
+                        .Replace("{Gzip-OriginalSize}", $"{(float) result.Statistics.OriginalGzipSize/1000:F} KB")
+                        .Replace("{OriginalSize}", $"{(float) result.Statistics.OriginalSize/1000:N} KB")
+                        .Replace("{Gzip-MinifiedSize}", $"{(float) result.Statistics.MinifiedGzipSize/1000:N} KB")
+                        .Replace("{MinifiedSize}", $"{(float) result.Statistics.MinifiedSize/1000:N} KB")
+                        .Replace("{Gzip-Saved}", $"{(float) result.Statistics.SavedGzipInBytes/1000:N} KB")
+                        .Replace("{Gzip-SavedInPercent}", $"{(float) result.Statistics.SavedGzipInPercent/100:P1}")
+                        .Replace("{Saved}", $"{(float) result.Statistics.SavedInBytes/1000:N} KB")
+                        .Replace("{SavedInPercent}", $"{(float) result.Statistics.SavedInPercent/100:P1}");
 
                     result = htmlMinifier.Minify(statistics, encoding);
 

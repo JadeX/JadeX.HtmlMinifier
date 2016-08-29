@@ -12,12 +12,12 @@
         <div>
             @Html.EditorFor(m => m.ExcludeAdmin)
             <label class="forcheckbox" for="@Html.FieldIdFor(m => m.ExcludeAdmin)">@T("Exclude administration")</label>
-            <span class="hint">@T("Disabling exclusion of administration shouldn't cause any problems, but there isn't much to be gained either, better safe than sorry. <strong>Default: True</strong>")</span>
+            <span class="hint">@T("Disabling exclusion of administration may cause problems and there isn't much to be gained. <strong>Default: True</strong>")</span>
         </div>
         <div>
             @Html.EditorFor(m => m.ExcludeAuthenticated)
             <label class="forcheckbox" for="@Html.FieldIdFor(m => m.ExcludeAuthenticated)">@T("Exclude authenticated users")</label>
-            <span class="hint">@T("Authenticated users are by default excluded from Output caching, thus every response has to be minified separately. Disabling this exclusion may slightly impact site's performance with higher CPU usage and response times if OutputCache is not set to cache authenticated as well. This option no effect on administration area. <strong>Default: True</strong>")</span>
+            <span class="hint">@T("Authenticated users are by default excluded from Output caching, thus every response has to be minified separately. Disabling this exclusion may slightly impact site performance with higher CPU usage and response times if OutputCache is not set to cache authenticated as well. This option has no effect on administration area. <strong>Default: True</strong>")</span>
         </div>
         <div>
             @Html.EditorFor(m => m.HaltOnWarnings)

@@ -70,8 +70,7 @@
     <Content Include="LICENSE.md" />
     <Content Include="README.md" />
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\Deploy - Clean.pubxml" />
-    <None Include="Properties\PublishProfiles\Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\*.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\Exclusions.cshtml" />

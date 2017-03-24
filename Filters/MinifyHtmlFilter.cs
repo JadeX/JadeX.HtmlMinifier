@@ -15,7 +15,7 @@ using WebMarkupMin.Core;
 
 namespace JadeX.HtmlMinifier.Filters
 {
-    public class HtmlFilter : FilterProvider, IResultFilter
+    public class HtmlFilter : FilterProvider, IActionFilter
     {
         private readonly WorkContext workContext;
         private readonly ICacheManager cacheManager;
@@ -31,41 +31,6 @@ namespace JadeX.HtmlMinifier.Filters
             this.cacheManager = cacheManager;
             this.signals = signals;
             this.authorizer = authorizer;
-        }
-
-        public void OnResultExecuting(ResultExecutingContext filterContext)
-        {
-        }
-
-        public void OnResultExecuted(ResultExecutedContext filterContext)
-        {
-            var settings = cacheManager.Get(
-                MinificationSettingsPart.CacheKey,
-                context =>
-                {
-                    context.Monitor(signals.When(MinificationSettingsPart.CacheKey));
-                    return workContext.CurrentSite.As<MinificationSettingsPart>();
-                });
-
-            var isAdminPage = AdminFilter.IsApplied(filterContext.RequestContext);
-
-            var isIgnoredUrl = IsIgnoredUrl(filterContext.RequestContext.HttpContext.Request.AppRelativeCurrentExecutionFilePath, settings.IgnoredUrls);
-            var isAdminExcluded = settings.ExcludeAdmin && isAdminPage;
-            var isAuthenticatedExcluded = workContext.CurrentUser != null && settings.ExcludeAuthenticated && !isAdminPage;
-            var debugEnabled = filterContext.HttpContext.IsDebuggingEnabled;
-            var isHtml = new[] { "text/html" }.Contains(workContext.HttpContext.Response.ContentType.ToLower());
-
-            if (filterContext.HttpContext.Response.Filter == null || isAdminExcluded || isAuthenticatedExcluded || isIgnoredUrl || debugEnabled || !isHtml)
-            {
-                return;
-            }
-
-            filterContext.HttpContext.Response.Filter = new MinifyHtmlFilter(
-                filterContext.HttpContext.Response.Filter,
-                filterContext.HttpContext.Response.Output.Encoding,
-                settings,
-                Logger,
-                authorizer.Authorize(StandardPermissions.SiteOwner));
         }
 
         private bool IsIgnoredUrl(string url, string ignoredUrls)
@@ -98,6 +63,41 @@ namespace JadeX.HtmlMinifier.Filters
             }
 
             return false;
+        }
+
+        public void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+        }
+
+        public void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            var settings = cacheManager.Get(
+                MinificationSettingsPart.CacheKey,
+                context =>
+                {
+                    context.Monitor(signals.When(MinificationSettingsPart.CacheKey));
+                    return workContext.CurrentSite.As<MinificationSettingsPart>();
+                });
+
+            var isAdminPage = AdminFilter.IsApplied(filterContext.RequestContext);
+
+            var isIgnoredUrl = IsIgnoredUrl(filterContext.RequestContext.HttpContext.Request.AppRelativeCurrentExecutionFilePath, settings.IgnoredUrls);
+            var isAdminExcluded = settings.ExcludeAdmin && isAdminPage;
+            var isAuthenticatedExcluded = workContext.CurrentUser != null && settings.ExcludeAuthenticated && !isAdminPage;
+            var debugEnabled = filterContext.HttpContext.IsDebuggingEnabled;
+            var isHtml = new[] { "text/html" }.Contains(workContext.HttpContext.Response.ContentType.ToLower());
+
+            if (filterContext.HttpContext.Response.Filter == null || isAdminExcluded || isAuthenticatedExcluded || isIgnoredUrl || debugEnabled || !isHtml)
+            {
+                return;
+            }
+
+            filterContext.HttpContext.Response.Filter = new MinifyHtmlFilter(
+                filterContext.HttpContext.Response.Filter,
+                filterContext.HttpContext.Response.Output.Encoding,
+                settings,
+                Logger,
+                authorizer.Authorize(StandardPermissions.SiteOwner));
         }
     }
 

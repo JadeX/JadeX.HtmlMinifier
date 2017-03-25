@@ -15,7 +15,7 @@ using WebMarkupMin.Core;
 
 namespace JadeX.HtmlMinifier.Filters
 {
-    public class HtmlFilter : FilterProvider, IActionFilter
+    public class HtmlFilter : FilterProvider, IResultFilter
     {
         private readonly WorkContext workContext;
         private readonly ICacheManager cacheManager;
@@ -65,19 +65,13 @@ namespace JadeX.HtmlMinifier.Filters
             return false;
         }
 
-        public void OnActionExecuting(ActionExecutingContext filterContext)
+        public void OnResultExecuting(ResultExecutingContext filterContext)
         {
         }
 
-        public void OnActionExecuted(ActionExecutedContext filterContext)
+        public void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            var settings = cacheManager.Get(
-                MinificationSettingsPart.CacheKey,
-                context =>
-                {
-                    context.Monitor(signals.When(MinificationSettingsPart.CacheKey));
-                    return workContext.CurrentSite.As<MinificationSettingsPart>();
-                });
+            var settings = cacheManager.Get(MinificationSettingsPart.CacheKey, context => { context.Monitor(signals.When(MinificationSettingsPart.CacheKey)); return workContext.CurrentSite.As<MinificationSettingsPart>(); });
 
             var isAdminPage = AdminFilter.IsApplied(filterContext.RequestContext);
 
@@ -127,6 +121,12 @@ namespace JadeX.HtmlMinifier.Filters
 
         public override void Flush()
         {
+            if (string.IsNullOrEmpty(html))
+            {
+                // Nothing in the filter, output served by OutputCache module
+                return;
+            }
+
             var htmlMinifier = new WebMarkupMin.Core.HtmlMinifier(new HtmlMinificationSettings
             {
                 WhitespaceMinificationMode = settings.WhitespaceMinificationMode,
@@ -189,17 +189,17 @@ namespace JadeX.HtmlMinifier.Filters
                 if (generateStatistics)
                 {
                     var statistics = settings.StatisticsInfoWindowPattern
-                        .Replace("{Gzip-CompressionRatio}", $"{(float) result.Statistics.CompressionGzipRatio/100:P1}")
-                        .Replace("{CompressionRatio}", $"{(float) result.Statistics.CompressionRatio/100:P1}")
+                        .Replace("{Gzip-CompressionRatio}", $"{(float)result.Statistics.CompressionGzipRatio / 100:P1}")
+                        .Replace("{CompressionRatio}", $"{(float)result.Statistics.CompressionRatio / 100:P1}")
                         .Replace("{MinificationDuration}", $"{result.Statistics.MinificationDuration} ms")
-                        .Replace("{Gzip-OriginalSize}", $"{(float) result.Statistics.OriginalGzipSize/1000:F} KB")
-                        .Replace("{OriginalSize}", $"{(float) result.Statistics.OriginalSize/1000:N} KB")
-                        .Replace("{Gzip-MinifiedSize}", $"{(float) result.Statistics.MinifiedGzipSize/1000:N} KB")
-                        .Replace("{MinifiedSize}", $"{(float) result.Statistics.MinifiedSize/1000:N} KB")
-                        .Replace("{Gzip-Saved}", $"{(float) result.Statistics.SavedGzipInBytes/1000:N} KB")
-                        .Replace("{Gzip-SavedInPercent}", $"{(float) result.Statistics.SavedGzipInPercent/100:P1}")
-                        .Replace("{Saved}", $"{(float) result.Statistics.SavedInBytes/1000:N} KB")
-                        .Replace("{SavedInPercent}", $"{(float) result.Statistics.SavedInPercent/100:P1}");
+                        .Replace("{Gzip-OriginalSize}", $"{(float)result.Statistics.OriginalGzipSize / 1000:F} KB")
+                        .Replace("{OriginalSize}", $"{(float)result.Statistics.OriginalSize / 1000:N} KB")
+                        .Replace("{Gzip-MinifiedSize}", $"{(float)result.Statistics.MinifiedGzipSize / 1000:N} KB")
+                        .Replace("{MinifiedSize}", $"{(float)result.Statistics.MinifiedSize / 1000:N} KB")
+                        .Replace("{Gzip-Saved}", $"{(float)result.Statistics.SavedGzipInBytes / 1000:N} KB")
+                        .Replace("{Gzip-SavedInPercent}", $"{(float)result.Statistics.SavedGzipInPercent / 100:P1}")
+                        .Replace("{Saved}", $"{(float)result.Statistics.SavedInBytes / 1000:N} KB")
+                        .Replace("{SavedInPercent}", $"{(float)result.Statistics.SavedInPercent / 100:P1}");
 
                     result = htmlMinifier.Minify(statistics, encoding);
 
